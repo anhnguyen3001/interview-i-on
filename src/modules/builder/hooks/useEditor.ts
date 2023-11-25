@@ -1,24 +1,27 @@
 import { useRef } from "react";
-import { UserElement } from "../types";
-import { useDispatch } from "react-redux";
-import { builderActions } from "../builderSlice";
+import { IUserElement } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import { builderActions, selectContent } from "../builderSlice";
 import { generateRandomId } from "../utils";
 
 export const useEditor = () => {
   const dispatch = useDispatch();
 
+  const content = useSelector(selectContent);
+
   const dragItemRef = useRef<object>();
 
-  const createNode = (el: HTMLElement, userElement: UserElement) => {
+  const createNode = (el: HTMLElement, userElement: IUserElement) => {
     if (!el) return;
 
     el.setAttribute("draggable", "true");
 
     const handleDragStart = () => {
-      dragItemRef.current = userElement.craft;
+      const { props, tag } = userElement.craft;
+      dragItemRef.current = { props, tag };
     };
 
-    const handleDragEnd = () => {
+    const handleDragEnd = (e: DragEvent) => {
       const item = dragItemRef.current;
 
       if (!item) return;
@@ -39,6 +42,16 @@ export const useEditor = () => {
   const connectNode = (el: HTMLElement, id: string) => {
     if (!el) return;
 
+    const isCanvasNode = content[id].isCanvas;
+
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+    };
+
+    if (isCanvasNode) {
+      el.addEventListener("dragover", handleDragOver);
+    }
+
     const handleClick = (e: MouseEvent) => {
       e.stopPropagation();
       dispatch(builderActions.selectNode(id));
@@ -48,6 +61,7 @@ export const useEditor = () => {
 
     return () => {
       el.removeEventListener("click", handleClick);
+      el.removeEventListener("dragover", handleDragOver);
     };
   };
 

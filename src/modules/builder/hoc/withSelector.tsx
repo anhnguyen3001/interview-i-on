@@ -1,9 +1,9 @@
 import { InternalNodeProvider, useInternalNode } from "../contexts";
-import { NodeElement } from "../types";
+import { IUserElementConfig } from "../types";
 
 export const withSelector = (
   Comp: React.ComponentType<any>,
-  initDataComp: Partial<NodeElement>
+  initDataComp: Partial<IUserElementConfig>
 ) => {
   const ComponentWithSelector = (
     props: any & {

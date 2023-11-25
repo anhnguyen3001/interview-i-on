@@ -4,4 +4,5 @@ import { COMP_TAG } from "modules/core";
 
 export const RootEditor = withSelector(Root, {
   tag: COMP_TAG.ROOT,
+  isCanvas: true,
 });

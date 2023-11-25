@@ -1,12 +1,12 @@
 import { Card, Typography } from "antd";
 import { useEditor } from "modules/builder/hooks";
-import { UserElement } from "modules/builder/types";
+import { IUserElement } from "modules/builder";
 
 const { Paragraph } = Typography;
 
 export interface IDraggableElement {
   name: string;
-  selector: UserElement;
+  selector: IUserElement;
 }
 
 export const DraggableElement: React.FC<IDraggableElement> = ({

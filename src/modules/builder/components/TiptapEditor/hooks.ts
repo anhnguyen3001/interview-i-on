@@ -35,7 +35,6 @@ export const useCustomTiptap = (propKey: string) => {
     if (!editor) return;
 
     editor.on("update", ({ editor }) => {
-      console.log(editor.getHTML());
       editingTextRef.current = editor.getHTML();
     });
   }, [editor]);
@@ -83,13 +82,11 @@ export const useCustomTiptap = (propKey: string) => {
 
   // Lưu text vào pbContent khi click ngoài builder & ngoài component trong builder
   useEffect(() => {
-    console.log("test");
     if (!editor) return;
 
     if (isEditable) {
       // Xử lý click ngoài builder
       const handleClickOutsideBuilder = () => {
-        console.log("click ", editingTextRef.current);
         setIsEditable(false);
 
         const editorText = editingTextRef.current;
@@ -107,7 +104,6 @@ export const useCustomTiptap = (propKey: string) => {
     } else {
       // Xử lý click ngoài component trong builder
       const editorText = editor.getHTML();
-      console.log(text, editorText, "hi");
       if (text !== editorText) {
         setText(editorText);
       }

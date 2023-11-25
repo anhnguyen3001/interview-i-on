@@ -18,6 +18,7 @@ export const DEFAULT_CONTENT: PBContentInterface = {
   [ROOT_ID]: {
     id: ROOT_ID,
     tag: COMP_TAG.ROOT,
+    isCanvas: true,
     children: [],
   },
 };

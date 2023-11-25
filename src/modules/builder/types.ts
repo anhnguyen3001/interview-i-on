@@ -1,10 +1,11 @@
-export interface UserElement {
-  craft: Partial<NodeElement>;
+export interface IUserElement {
+  craft: Partial<IUserElementConfig>;
 }
 
-export interface NodeElement {
+export interface IUserElementConfig {
   id: string;
   tag: string;
+  isCanvas?: boolean;
   props?: object;
   related?: object;
 }

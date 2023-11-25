@@ -1,6 +1,4 @@
-import styled from "@emotion/styled";
 import { PBContentInterface, BuilderComponent } from "modules/core";
-import { useRef } from "react";
 
 interface DndFrameProps {
   rootId: string;
@@ -9,13 +7,5 @@ interface DndFrameProps {
 }
 
 export const DndFrame: React.FC<DndFrameProps> = ({ resolvers, ...rest }) => {
-  const frameRef = useRef<HTMLDivElement>();
-
-  return (
-    <Wrapper ref={frameRef} onDragOver={(e) => e.preventDefault()}>
-      <BuilderComponent componentDict={resolvers} {...rest} />
-    </Wrapper>
-  );
+  return <BuilderComponent componentDict={resolvers} {...rest} />;
 };
-
-const Wrapper = styled.div``;

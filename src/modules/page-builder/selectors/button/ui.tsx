@@ -9,7 +9,6 @@ export interface ButtonProps extends ButtonInterface {
 export const Button = React.forwardRef<HTMLDivElement, ButtonProps>(
   ({ alertMessage, text, isEditMode }, ref) => {
     const onClick = () => {
-      console.log("hi");
       if (alertMessage) {
         window.alert(alertMessage);
       }

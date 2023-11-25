@@ -4,6 +4,7 @@ export interface PBComponent {
   tag?: string;
   children?: string[];
   props?: object;
+  isCanvas?: boolean;
 }
 
 export interface PBContentInterface {
