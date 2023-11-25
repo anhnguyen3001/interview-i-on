@@ -14,7 +14,7 @@ export const useEditor = () => {
 
     el.setAttribute("draggable", "true");
 
-    const handleDragStart = (e: DragEvent) => {
+    const handleDragStart = () => {
       dragItemRef.current = userElement.craft;
     };
 

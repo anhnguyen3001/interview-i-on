@@ -22,11 +22,13 @@ export const Admin = () => {
 
     try {
       pbContent = JSON.parse(localStorage.getItem(LS_CONTENT_KEY));
-    } catch {
+    } catch {}
+
+    if (!Object.keys(pbContent || {}).length) {
       pbContent = DEFAULT_CONTENT;
     }
-    dispatch(builderActions.setContent(pbContent));
 
+    dispatch(builderActions.setContent(pbContent || DEFAULT_CONTENT));
     // eslint-disable-next-line
   }, []);
 
