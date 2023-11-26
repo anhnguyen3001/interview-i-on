@@ -1,16 +1,14 @@
 import styled from "@emotion/styled";
-import { selectRelatedMapping, selectSelectedNode } from "modules/builder";
-import React from "react";
-import { useSelector } from "react-redux";
 import { Typography } from "antd";
+import { useEditor } from "modules/builder";
+import React from "react";
 
 const { Title } = Typography;
 
 export const SettingSidebar: React.FC = () => {
-  const selectedId = useSelector(selectSelectedNode);
-  const related = useSelector(selectRelatedMapping);
+  const { selectedNode, relatedMapping } = useEditor();
 
-  const customAttributes = related[selectedId]?.customAttributes;
+  const customAttributes = relatedMapping?.[selectedNode]?.customAttributes;
 
   return (
     <Wrapper>

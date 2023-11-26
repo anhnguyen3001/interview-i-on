@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import { selectContent } from "modules/builder";
-import { LS_CONTENT_KEY } from "modules/core";
-import { useSelector } from "react-redux";
-import { CONSUMER } from "router/path";
 import { Button, ButtonProps } from "antd";
+import { useEditor } from "modules/builder";
+import { LS_CONTENT_KEY } from "modules/core";
+import { CONSUMER } from "router/path";
 
 export const BuilderHeader = () => {
-  const content = useSelector(selectContent);
+  const { content } = useEditor();
 
   const onSave = () => {
     localStorage.setItem(LS_CONTENT_KEY, JSON.stringify(content));

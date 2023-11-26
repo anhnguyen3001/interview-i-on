@@ -1,13 +1,12 @@
-import { PBContentInterface } from "modules/core";
+import { PBContentInterface, ROOT_ID } from "modules/core";
 
 export interface BuilderComponentProps {
   content?: PBContentInterface;
-  rootId?: string;
   componentDict: Record<string, React.ComponentType<any>>;
 }
 
 export const BuilderComponent = (props: BuilderComponentProps) => {
-  const { content, rootId = "ROOT", componentDict } = props;
+  const { content, componentDict } = props;
 
   const renderComponent = (id: string, apiResponse: PBContentInterface) => {
     const compData = apiResponse[id];
@@ -38,6 +37,6 @@ export const BuilderComponent = (props: BuilderComponentProps) => {
     return <Comp {...componentProps} />;
   };
 
-  if (!content?.[rootId]) return null;
-  return <>{renderComponent(rootId, content)}</>;
+  if (!content?.[ROOT_ID]) return null;
+  return <>{renderComponent(ROOT_ID, content)}</>;
 };

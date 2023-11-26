@@ -2,19 +2,16 @@ import { redoDepth, undoDepth } from "@tiptap/pm/history";
 import { useEditor as useEditorTT } from "@tiptap/react";
 import { useEffect, useRef, useState } from "react";
 import { useProp } from "modules/builder/hooks";
-import { useSelector } from "react-redux";
-import { selectSelectedNode } from "modules/builder/builderSlice";
-import { useInternalNode } from "modules/builder/contexts";
+import { useEditor, useInternalNode } from "modules/builder/contexts";
 import StarterKit from "@tiptap/starter-kit";
 
 const ADD_TO_HISTORY_KEY = "addToHistory";
 
 export const useCustomTiptap = (propKey: string) => {
+  const { selectedNode } = useEditor();
   const { id } = useInternalNode();
 
   const [text, setText] = useProp(propKey);
-
-  const selectedNode = useSelector(selectSelectedNode);
 
   const isActive = selectedNode === id;
 

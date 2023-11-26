@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { builderActions } from "../builderSlice";
-import { useEditor } from "../hooks";
+import { useEditor } from "./EditorContext";
 
 interface InternalNodeProviderProps {
   children?: React.ReactNode;
@@ -12,6 +10,9 @@ interface InternalNodeProviderProps {
 interface IInternalNodeState {
   id?: string;
   connect?: (el: HTMLElement) => void;
+
+  getProp?: (propKey: string) => any;
+  setProp?: (propKey: string, value: any) => void;
 }
 
 const NodeContext = createContext<IInternalNodeState>({});
@@ -21,9 +22,7 @@ export const InternalNodeProvider = ({
   id,
   related,
 }: InternalNodeProviderProps) => {
-  const dispatch = useDispatch();
-
-  const { connectNode: editorConnect } = useEditor();
+  const { setRelated, connectNode, getNode, setNode } = useEditor();
 
   useEffect(() => {
     if (!related) return;
@@ -41,21 +40,24 @@ export const InternalNodeProvider = ({
         );
     });
 
-    dispatch(
-      builderActions.setRelatedMapping({
-        id,
-        related: newRelated,
-      })
-    );
+    setRelated(id, newRelated);
     // eslint-disable-next-line
   }, []);
 
   const connect = (el: HTMLElement) => {
-    editorConnect(el, id);
+    connectNode(el, id);
+  };
+
+  const getProp = (propKey: string) => {
+    return getNode(id, ["props", propKey]);
+  };
+
+  const setProp = (propKey: string, value: any) => {
+    setNode(id, ["props", propKey], value);
   };
 
   return (
-    <NodeContext.Provider value={{ id, connect }}>
+    <NodeContext.Provider value={{ id, connect, getProp, setProp }}>
       {children}
     </NodeContext.Provider>
   );

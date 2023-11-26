@@ -1,6 +1,5 @@
 import { Card, Typography } from "antd";
-import { useEditor } from "modules/builder/hooks";
-import { IUserElement } from "modules/builder";
+import { IUserElement, useEditor } from "modules/builder";
 
 const { Paragraph } = Typography;
 
