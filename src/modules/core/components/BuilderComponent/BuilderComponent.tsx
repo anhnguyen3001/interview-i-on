@@ -34,6 +34,7 @@ export const BuilderComponent = (props: BuilderComponentProps) => {
         </Comp>
       );
     }
+
     return <Comp {...componentProps} />;
   };
 

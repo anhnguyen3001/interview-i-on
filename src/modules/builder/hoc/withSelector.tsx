@@ -1,5 +1,6 @@
 import { InternalNodeProvider, useInternalNode } from "../contexts";
 import { IUserElementConfig } from "../types";
+import React from "react";
 
 export const withSelector = (
   Comp: React.ComponentType<any>,

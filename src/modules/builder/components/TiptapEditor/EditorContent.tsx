@@ -8,13 +8,11 @@ import React from "react";
 export interface EditorContentProps
   extends Pick<BaseEditorContentProps, "editor"> {
   children?: React.ReactElement;
-  className?: string;
   setIsEditable?: (isEditable: boolean) => void;
 }
 
 export const EditorContent: React.FC<EditorContentProps> = ({
   children,
-  className,
   setIsEditable,
   editor,
   ...rest
@@ -32,21 +30,18 @@ export const EditorContent: React.FC<EditorContentProps> = ({
       {...rest}
     >
       {children
-        ? React.cloneElement(children, { className }, editorContent)
+        ? React.cloneElement(children, { children: editorContent })
         : editorContent}
     </div>
   );
 };
 
 const StyledBaseEditorContent = styled(BaseEditorContent)`
-  min-width: 8px;
-  max-width: 100%;
+  min-width: 100%;
+  width: 120px;
 
-  .ProseMirror[contenteditable="true"] {
+  .ProseMirror {
+    width: 100%;
     cursor: text !important;
-  }
-
-  a {
-    pointer-events: none;
   }
 `;

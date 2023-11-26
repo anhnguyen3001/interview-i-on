@@ -24,7 +24,7 @@ interface IEditorState extends Partial<Pick<EditorContextProps, "resolvers">> {
   createNode?: (el: HTMLElement, userElement: IUserElement) => void;
   connectNode?: (el: HTMLElement, id: string) => void;
 
-  getNode?: (id: string, key: string | string[]) => any;
+  getNode?: (id: string, key?: string | string[]) => any;
   setNode?: (id: string, key: string | string[], value: any) => void;
 
   selectedNode?: string;
@@ -117,7 +117,9 @@ export const EditorProvider: React.FC<EditorContextProps> = ({
     });
   };
 
-  const getNode = (id: string, key: string | string[]) => {
+  const getNode = (id: string, key?: string | string[]) => {
+    if (!key) return pbContent[id];
+
     return get(pbContent[id], key);
   };
 

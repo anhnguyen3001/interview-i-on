@@ -5,13 +5,11 @@ import { COMP_TAG } from "modules/core";
 import { TipTapEditor } from "modules/builder";
 
 export const ParagraphEditor = withSelector(
-  (props) => {
-    return (
-      <TipTapEditor propKey="text">
-        <Paragraph {...props} />
-      </TipTapEditor>
-    );
-  },
+  (props) => (
+    <TipTapEditor propKey="text">
+      <Paragraph {...props} />
+    </TipTapEditor>
+  ),
   {
     tag: COMP_TAG.PARAGRAPH,
     props: DEFAULT_PARAGRAPH,
