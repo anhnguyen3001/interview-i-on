@@ -18,36 +18,38 @@ User component - PBComponent (Node):
   - ui: UI of component
   - selector: wrap UI component with some logic (`withSelector`) to allow users to customize on Editor
 
-1. Solution:
+Editor:
 
-- Sharing data: Store page content and other related data in a GlobalStore (Redux). Detail
+- Data start from component ROOT (id = ROOT)
+- Currently, only allow to drop into ROOT component but with `isCanvas`, I can design other components (row, column, ...) to receive components.
 
-  - State
-    - content: page content: Map of user component
-    - selectedNode: current node user clicks on
-  - Expose some functions
-    - addNode: add component user drop to page content
-    - updateContent: set props of component
+Solution:
 
-- Editor:
+- Store data in a GlobalStore - EditorContext. Detail
 
-  - Data start from component ROOT (id = ROOT). Currently, only allow to drop into ROOT component but with `isCanvas`, I can design other components (row, column, ...) to receive components.
-  - Feature
-    - Handle add new node to content: eventListener `dragstart, drop`
-    - Get & set value of node: common hook `useProp` to get value from global store & set value to it
+  - State: related to Builder
+    - `content`: page content: Map of user component
+    - `selectedNode`: current node user clicks on
+
+- Handle core features
+
+  - Drag and drop: use eventListener `dragstart,  drop` to insert new node to content
+  - Getter & Setter for node data: create common hook `useProp`
 
 - Render page content in Builder/Consumer: use a map of tag-components to start render from rootId (ROOT) in `BuilderComponent`
 
-2. Project folder structure
+Project folder structure
 
-![Project Structure](project-structure.png)
+![Project structure](image.png)
 
 - `modules`
 
-  - `builder`: Core logic Dnd & interact with props of user component in Editor
+  - `builder`: Core logic Dnd & custom props of user component in Editor
     - `components`:
       - TiptapEditor for inline text editor of Paragraph component
-    - InputConfig: common TextInput for setting props of component
+      - InputConfig: common TextInput for setting props of component
+    - `contexts`: Editor & Node context with core functions for Editor & Node
+    - `hooks`: common hooks for getting & setting node props
   - `page-builder`:
     - `components`: components used for UI of Admin page
     - `selectors`: user components: button, paragraph - selector: connect UI & functions in Editor - ui: UI of component - constants: default value for component props - types: interface of component props
