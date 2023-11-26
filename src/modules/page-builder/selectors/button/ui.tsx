@@ -6,21 +6,23 @@ export interface ButtonProps extends ButtonInterface {
   isEditMode?: boolean;
 }
 
-export const Button = React.forwardRef<HTMLDivElement, ButtonProps>(
-  ({ alertMessage, text, isEditMode }, ref) => {
-    const onClick = () => {
-      if (alertMessage) {
-        window.alert(alertMessage);
-      }
-    };
+export const Button: React.FC<ButtonProps> = ({
+  alertMessage,
+  text,
+  isEditMode,
+}) => {
+  const onClick = () => {
+    if (alertMessage) {
+      window.alert(alertMessage);
+    }
+  };
 
-    return (
-      <Wrapper ref={ref}>
-        <StyledButton {...(!isEditMode && { onClick })}>{text}</StyledButton>
-      </Wrapper>
-    );
-  }
-);
+  return (
+    <Wrapper>
+      <StyledButton {...(!isEditMode && { onClick })}>{text}</StyledButton>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   margin-bottom: 8px;

@@ -11,6 +11,7 @@ User component - PBComponent (Node):
 - Data structure:
   - id: generated randomly
   - tag: key to map component to render in builder/consumer
+  - isCanvas: whether other components drop in or not
   - props: store value of props user customize
   - related: Map of components sharing current node context: use for rendering setting component
 - Coding: Each component needs 2 basic file
@@ -30,8 +31,10 @@ User component - PBComponent (Node):
 
 - Editor:
 
-  - Handle add new node to content: eventListener `dragstart, dragend`
-  - Get & set value of node: common hook `useProp` to get value from global store & set value to it
+  - Data start from component ROOT (id = ROOT). Currently, only allow to drop into ROOT component but with `isCanvas`, I can design other components (row, column, ...) to receive components.
+  - Feature
+    - Handle add new node to content: eventListener `dragstart, drop`
+    - Get & set value of node: common hook `useProp` to get value from global store & set value to it
 
 - Render page content in Builder/Consumer: use a map of tag-components to start render from rootId (ROOT) in `BuilderComponent`
 

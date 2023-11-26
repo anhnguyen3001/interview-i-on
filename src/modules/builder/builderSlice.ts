@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { PBComponent, PBContentInterface, ROOT_ID } from "modules/core";
+import { PBComponent, PBContentInterface } from "modules/core";
 import get from "lodash.get";
 import set from "lodash.set";
 import clonedeep from "lodash.clonedeep";
@@ -25,21 +25,24 @@ export const builderSlice = createSlice({
     setContent: (state, action: PayloadAction<PBContentInterface>) => {
       return { ...state, content: action.payload };
     },
-    addNode: (state, action: PayloadAction<PBComponent>) => {
-      if (!state.content?.[ROOT_ID]) return state;
+    addNode: (
+      state,
+      action: PayloadAction<{ node: PBComponent; parentId: string }>
+    ) => {
+      const { node, parentId } = action.payload;
 
-      const { id } = action.payload;
+      if (!state.content?.[parentId]) return state;
 
       const newState = clonedeep(state);
 
-      if (!newState.content[ROOT_ID].children) {
-        newState.content[ROOT_ID].children = [];
+      if (!newState.content[parentId].children) {
+        newState.content[parentId].children = [];
       }
 
-      newState.content[ROOT_ID].children.push(id);
-      newState.content[id] = {
+      newState.content[parentId].children.push(node.id);
+      newState.content[node.id] = {
         children: [],
-        ...action.payload,
+        ...node,
       };
 
       return newState;
@@ -86,6 +89,9 @@ export const builderActions = builderSlice.actions;
 // Selector
 export const selectContent = (state: any): PBContentInterface =>
   state.builder.content;
+
+export const selectNodeData = (state: any, id: string): PBComponent =>
+  state.builder?.content?.[id];
 
 export const selectPropValue = (state: any, id: string, propKey: string) =>
   get(state.builder.content, [id, PROPS, propKey]);

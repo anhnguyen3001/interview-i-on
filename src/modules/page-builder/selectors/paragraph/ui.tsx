@@ -6,24 +6,21 @@ export interface ParagraphProps extends ParagraphInterface {
   children?: React.ReactElement;
 }
 
-export const Paragraph = React.forwardRef<HTMLDivElement, ParagraphProps>(
-  ({ text, children, ...rest }, ref) => {
-    if (children) {
-      return (
-        <div ref={ref} {...rest}>
-          {children}
-        </div>
-      );
-    }
-
-    return (
-      <div
-        ref={ref}
-        {...rest}
-        dangerouslySetInnerHTML={{
-          __html: text,
-        }}
-      />
-    );
+export const Paragraph: React.FC<ParagraphProps> = ({
+  text,
+  children,
+  ...rest
+}) => {
+  if (children) {
+    return <div {...rest}>{children}</div>;
   }
-);
+
+  return (
+    <div
+      {...rest}
+      dangerouslySetInnerHTML={{
+        __html: text,
+      }}
+    />
+  );
+};

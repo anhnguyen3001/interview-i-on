@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { builderActions } from "../builderSlice";
 import { useEditor } from "../hooks";
-import React from "react";
 
 interface InternalNodeProviderProps {
   children?: React.ReactNode;

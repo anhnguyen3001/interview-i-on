@@ -4,20 +4,13 @@ import React from "react";
 
 export interface RootProps extends RootInterface {
   children?: React.ReactNode;
-  className?: string;
 }
+
+export const Root: React.FC<RootProps> = ({ children }) => {
+  return <Wrapper>{children}</Wrapper>;
+};
 
 const Wrapper = styled.div`
   height: 100vh;
   padding: 16px;
 `;
-
-export const Root = React.forwardRef<HTMLDivElement, RootProps>(
-  ({ children, className }, ref) => {
-    return (
-      <Wrapper ref={ref} className={className}>
-        {children}
-      </Wrapper>
-    );
-  }
-);
